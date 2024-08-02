@@ -3,7 +3,7 @@ from transformers import pipeline
 import time
 
 # Load the classifier pipeline
-classifier = pipeline("text-classification", model="jayavibhav/DistillBERT-Prompt-Injection-sm")
+classifier = pipeline("text-classification", model="jayavibhav/DistillBERT-Prompt-Injection-Safety")
 
 # Set the title and styling of the app
 st.set_page_config(page_title="Prompt Evaluation", page_icon="🔍")
