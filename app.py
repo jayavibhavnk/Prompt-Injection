@@ -6,7 +6,7 @@ import time
 classifier = pipeline("text-classification", model="jayavibhav/DistillBERT-Prompt-Injection-sm")
 
 # Set the title and styling of the app
-st.set_page_config(page_title="Prompt Evaluation", page_icon="🔍", layout="wide")
+st.set_page_config(page_title="Prompt Evaluation", page_icon="🔍")
 st.title("🔍 Prompt Evaluation")
 
 # Sidebar for additional options or information
@@ -68,11 +68,11 @@ if st.button("Submit"):
 
             # Display the result with color coding
             if label == 'SAFE':
-                st.success(f"**{label}** with a confidence score of **{score:.2f}**")
+                st.success(f"**{label}** with a confidence score of **{score:.3f}**")
             elif label == 'UNSAFE':
-                st.warning(f"**{label}** with a confidence score of **{score:.2f}**")
+                st.warning(f"**{label}** with a confidence score of **{score:.3f}**")
             elif label == 'INJECTION':
-                st.error(f"**{label}** with a confidence score of **{score:.2f}**")
+                st.error(f"**{label}** with a confidence score of **{score:.3f}**")
     else:
         st.warning("Please enter some text before submitting.")
 
