@@ -15,7 +15,7 @@ with st.sidebar:
     st.markdown("This app uses a pre-trained DistilBERT model to classify text into three categories: **SAFE**, **UNSAFE**, and **INJECTION**.")
     st.markdown("The classification is done in real-time and is visualized with color-coded labels.")
 
-# Add custom CSS for styling and footer positioning
+# Add custom CSS for styling
 st.markdown("""
     <style>
         .stTextArea textarea {
@@ -45,21 +45,9 @@ st.markdown("""
             background-color: #f0f0f5;
             border-radius: 5px;
             margin-top: 20px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            left: 0;
-        }
-        .main {
-            min-height: 90vh;
-            padding-bottom: 60px; /* Space for the footer */
-            box-sizing: border-box;
         }
     </style>
 """, unsafe_allow_html=True)
-
-# Container to wrap the main content
-st.markdown("<div class='main'>", unsafe_allow_html=True)
 
 # Text area for user input
 st.markdown("### Enter the text to evaluate:")
@@ -87,9 +75,6 @@ if st.button("Submit"):
                 st.error(f"**{label}** with a confidence score of **{score:.3f}**")
     else:
         st.warning("Please enter some text before submitting.")
-
-# Close the main container
-st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer section
 st.markdown("""
