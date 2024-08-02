@@ -6,11 +6,14 @@ import time
 classifier = pipeline("text-classification", model="jayavibhav/DistillBERT-Prompt-Injection-sm")
 
 # Set the title and styling of the app
-st.set_page_config(page_title="Prompt Evaluation", page_icon="🔍")
+st.set_page_config(page_title="Prompt Evaluation", page_icon="🔍", layout="wide")
 st.title("🔍 Prompt Evaluation")
 
-# Add a description or instructions
-st.markdown("Enter text in the box below to evaluate its safety. The app will classify the text into one of three categories: **SAFE**, **UNSAFE**, or **INJECTION**.")
+# Sidebar for additional options or information
+with st.sidebar:
+    st.header("About")
+    st.markdown("This app uses a pre-trained DistilBERT model to classify text into three categories: **SAFE**, **UNSAFE**, and **INJECTION**.")
+    st.markdown("The classification is done in real-time and is visualized with color-coded labels.")
 
 # Add custom CSS for styling
 st.markdown("""
@@ -19,33 +22,63 @@ st.markdown("""
             background-color: #f0f0f5;
             color: #000000;
             font-size: 16px;
+            border-radius: 5px;
         }
         .stButton button {
             background-color: #4CAF50;
             color: white;
             font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
-        .stProgress div {
-            background-color: #4CAF50;
+        .stButton button:hover {
+            background-color: #45a049;
+        }
+        .stAlert div {
+            font-size: 18px;
+        }
+        footer {
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+            background-color: #f0f0f5;
+            border-radius: 5px;
+            margin-top: 20px;
         }
     </style>
 """, unsafe_allow_html=True)
 
 # Text area for user input
-user_input = st.text_area("Enter the text to evaluate:")
+st.markdown("### Enter the text to evaluate:")
+user_input = st.text_area("", height=150, placeholder="Type your text here...")
 
-# Submit button with a loading bar
+# Submit button with a loading animation and progress bar
 if st.button("Submit"):
-    with st.spinner('Evaluating...'):
-        time.sleep(1)  # Simulate a delay for the loading animation
-        result = classifier(user_input)
-        label = result[0]['label']
-        score = result[0]['score']
+    if user_input:
+        with st.spinner('Evaluating...'):
+            progress = st.progress(0)
+            for percent_complete in range(100):
+                time.sleep(0.01)  # Simulate a delay for the loading animation
+                progress.progress(percent_complete + 1)
 
-        # Display the result with color coding
-        if label == 'SAFE':
-            st.success(f"The text is classified as **{label}** with a confidence score of **{score:.2f}**")
-        elif label == 'UNSAFE':
-            st.warning(f"The text is classified as **{label}** with a confidence score of **{score:.2f}**")
-        elif label == 'INJECTION':
-            st.error(f"The text is classified as **{label}** with a confidence score of **{score:.2f}**")
+            result = classifier(user_input)
+            label = result[0]['label']
+            score = result[0]['score']
+
+            # Display the result with color coding
+            if label == 'SAFE':
+                st.success(f"**{label}** with a confidence score of **{score:.2f}**")
+            elif label == 'UNSAFE':
+                st.warning(f"**{label}** with a confidence score of **{score:.2f}**")
+            elif label == 'INJECTION':
+                st.error(f"**{label}** with a confidence score of **{score:.2f}**")
+    else:
+        st.warning("Please enter some text before submitting.")
+
+# Footer section
+st.markdown("""
+    <footer>
+        © 2024 Prompt Evaluation App by JVNK. All rights reserved.
+    </footer>
+""", unsafe_allow_html=True)
