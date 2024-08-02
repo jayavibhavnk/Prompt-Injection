@@ -94,6 +94,6 @@ st.markdown("</div>", unsafe_allow_html=True)
 # Footer section
 st.markdown("""
     <footer>
-        © 2024 Prompt Evaluation App. All rights reserved.
+        © 2024 Prompt Evaluation App by JVNK. All rights reserved.
     </footer>
 """, unsafe_allow_html=True)
