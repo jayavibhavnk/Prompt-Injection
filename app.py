@@ -12,7 +12,7 @@ st.title("🔍 Prompt Evaluation")
 # Sidebar for additional options or information
 with st.sidebar:
     st.header("About")
-    st.markdown("This app uses a pre-trained DistilBERT model to classify text into three categories: **SAFE**, **UNSAFE**, and **INJECTION**.")
+    st.markdown("This app uses a Fine-tuned DistilBERT model to classify text into three categories: **SAFE**, **UNSAFE**, and **INJECTION**.")
     st.markdown("The classification is done in real-time and is visualized with color-coded labels.")
 
 # Add custom CSS for styling
